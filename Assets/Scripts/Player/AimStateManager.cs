@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 
 public class AimStateManager : MonoBehaviour
@@ -24,5 +25,6 @@ public class AimStateManager : MonoBehaviour
 
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, xAxis, transform.eulerAngles.z);
     }
+    
 
 }

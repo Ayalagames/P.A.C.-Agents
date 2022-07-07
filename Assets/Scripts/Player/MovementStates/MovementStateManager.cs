@@ -12,7 +12,7 @@ public class MovementStateManager : MonoBehaviour
     public float crouchSpeed = 2, crouchBackSpeed = 1;
     [HideInInspector] public Vector3 dir;
     public float hzInput, vInput;
-    CharacterController controller;
+    [SerializeField] CharacterController controller;
 
     //Gravity
     [SerializeField] float groundYOffset;
