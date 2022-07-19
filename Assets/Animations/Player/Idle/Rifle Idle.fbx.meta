@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: c4ea0b5d8a394dd4b983d0ec05fac609
+guid: 0712f8c9b93b7e440b6d33931bcdc0ea
 ModelImporter:
-  serializedVersion: 22102
+  serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Rifle Aim Run Back
+    second: Rifle Idle
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,19 +36,19 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Rifle Aim Run Back
+      name: Rifle Idle
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 32
+      lastFrame: 170
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: -50
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -99,7 +99,6 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -888,7 +887,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
-  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
