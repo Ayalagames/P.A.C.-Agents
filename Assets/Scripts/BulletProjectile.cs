@@ -11,6 +11,9 @@ public class BulletProjectile : MonoBehaviour
     private float time = 5f;
     private float current_time;
 
+    private int damage = 5;
+
+
     private void Awake() {
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.velocity = transform.forward*speed;
@@ -34,6 +37,10 @@ public class BulletProjectile : MonoBehaviour
     {
         if (!(other.gameObject.tag == "Player"))
         {
+            if (other.TryGetComponent(out IDamageable hurtbox))
+            {
+                hurtbox.health -= damage;
+            }
         Destroy(gameObject);
     }
     }

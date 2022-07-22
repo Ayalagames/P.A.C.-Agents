@@ -13,6 +13,7 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 		public bool shoot;
+        public bool switchWeapons;
 
 		public bool aim;
 
@@ -24,7 +25,7 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-		public void OnMove(InputValue value)
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -54,6 +55,10 @@ namespace StarterAssets
 		{
 			AimInput(value.isPressed);
 		}
+		public void OnSwitchWeapons(InputValue value)
+        {
+			SwitchWeaponsInput(value.isPressed);
+        }
 #endif
 
 
@@ -74,7 +79,6 @@ namespace StarterAssets
 		public void ShootInput(bool newShootState)
 		{
 			shoot = newShootState;
-			print(shoot);
 		}
 
 		public void SprintInput(bool newSprintState)
@@ -95,7 +99,13 @@ namespace StarterAssets
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
-		
+
+		private void SwitchWeaponsInput(bool isPressed)
+        {
+			switchWeapons = isPressed;
+        }
+
+
 	}
 	
 }

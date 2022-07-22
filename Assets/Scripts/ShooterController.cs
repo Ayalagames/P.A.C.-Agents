@@ -4,8 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using StarterAssets;
 using UnityEngine.InputSystem;
-
-
+using System;
 
 public class ShooterController : MonoBehaviour
 {
@@ -13,7 +12,14 @@ public class ShooterController : MonoBehaviour
     [SerializeField] private float normalSensitivity;
     [SerializeField] private float aimSensitivity;
 
-    private Gun gun;
+    private HitscanGun gun;
+    private List<IFirearm> guns;
+    [SerializeField]
+    private Transform gunContainer;
+
+    private IFirearm currentWeapon;
+    private int currentWeaponIndex = 0;
+    
 
     private ThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
@@ -21,15 +27,20 @@ public class ShooterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        guns = new List<IFirearm> { };
+        foreach (Transform gun in gunContainer)
+        {
+            guns.Add(gun.gameObject.GetComponent<IFirearm>());
+        }
+        currentWeapon = guns[currentWeaponIndex];
     }
 
     private void Awake() {
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         thirdPersonController = GetComponent<ThirdPersonController>();
-        GameObject other = GameObject.Find("Gun");
-        gun = (Gun) other.GetComponent(typeof(Gun));
-        print(gun);
+        //GameObject other = GameObject.Find("HitScanGun");
+        //gun = (HitscanGun) other.GetComponent(typeof(HitscanGun));
     }
 
 
@@ -58,9 +69,28 @@ public class ShooterController : MonoBehaviour
         if (starterAssetsInputs.shoot)
         {
             // Call current gun, fire()
-            print(gun);
-            gun.FireGun();
+            currentWeapon.FireGun();
+        }
+        else
+        {
         }
 
+        if (starterAssetsInputs.switchWeapons)
+        {
+            switchWeapons();
+            starterAssetsInputs.switchWeapons = false;        
+        }
+
+    }
+
+    private void switchWeapons()
+    {
+        print("switching");
+        currentWeaponIndex += 1;
+        if (currentWeaponIndex > guns.Count - 1)
+        {
+            currentWeaponIndex = 0;
+        }
+        currentWeapon = guns[currentWeaponIndex];
     }
 }
