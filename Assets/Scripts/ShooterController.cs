@@ -5,8 +5,9 @@ using Cinemachine;
 using StarterAssets;
 using UnityEngine.InputSystem;
 using System;
+using TMPro;
 
-public class ShooterController : MonoBehaviour
+public class ShooterController : MonoBehaviour, IPortalClose
 {
     [SerializeField] private CinemachineVirtualCamera aimVirtualCamera;
     [SerializeField] private float normalSensitivity;
@@ -19,7 +20,12 @@ public class ShooterController : MonoBehaviour
 
     private IFirearm currentWeapon;
     private int currentWeaponIndex = 0;
-    
+
+    private Portal portal;
+    private int portalFrameNum;
+
+    [SerializeField]
+    private TMP_Text portalCloseText;
 
     private ThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
@@ -27,6 +33,7 @@ public class ShooterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        portalCloseText.gameObject.SetActive(false);
 
         guns = new List<IFirearm> { };
         foreach (Transform gun in gunContainer)
@@ -81,6 +88,22 @@ public class ShooterController : MonoBehaviour
             starterAssetsInputs.switchWeapons = false;        
         }
 
+        if (starterAssetsInputs.closePortal)
+        {
+            portalFrameNum++;
+            if (portalFrameNum == 20)
+            {
+
+                if (portal != null)
+                {
+                    portal.Health--;
+                    portalCloseText.text = $"Hold F to close the Portal {100-portal.Health}%";
+
+                }
+                portalFrameNum = 0;
+            }
+        }
+
     }
 
     private void switchWeapons()
@@ -92,5 +115,19 @@ public class ShooterController : MonoBehaviour
             currentWeaponIndex = 0;
         }
         currentWeapon = guns[currentWeaponIndex];
+    }
+
+    public void PortalRangeEntered(Portal p )
+    {
+        portal = p;
+        portalCloseText.gameObject.SetActive(true);
+        portalCloseText.text = $"Hold F to close the Portal {100 - portal.Health}%";
+    }
+
+    public void PortalRangeExited()
+    {
+        portal = null;
+        portalCloseText.gameObject.SetActive(false);
+
     }
 }

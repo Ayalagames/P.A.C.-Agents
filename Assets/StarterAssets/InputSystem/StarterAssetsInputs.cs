@@ -14,6 +14,7 @@ namespace StarterAssets
 		public bool sprint;
 		public bool shoot;
         public bool switchWeapons;
+        public bool closePortal;
 
 		public bool aim;
 
@@ -59,6 +60,12 @@ namespace StarterAssets
         {
 			SwitchWeaponsInput(value.isPressed);
         }
+		public void OnClosePortal(InputValue value)
+        {
+			ClosePortalInput(value.isPressed);
+			
+
+		}
 #endif
 
 
@@ -105,7 +112,10 @@ namespace StarterAssets
 			switchWeapons = isPressed;
         }
 
-
+		private void ClosePortalInput(bool isPressed)
+        {
+			closePortal = isPressed;
+        }
 	}
 	
 }

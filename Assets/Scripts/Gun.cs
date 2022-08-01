@@ -10,7 +10,6 @@ public class Gun : MonoBehaviour , IFirearm
 
     // [SerializeField]
     // [Range(1,10)]
-     private int damage = 1;
 
     private int magazineSize = 10;
     private int currentMag;

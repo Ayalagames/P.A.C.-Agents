@@ -89,6 +89,15 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ClosePortal"",
+                    ""type"": ""Value"",
+                    ""id"": ""c9d9860b-300a-4152-9f58-04edfdaff692"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -300,6 +309,17 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                     ""action"": ""SwitchWeapons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ddb96ed4-d7ee-4489-b934-1cb3a8dafd5b"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClosePortal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -363,6 +383,7 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_SwitchWeapons = m_Player.FindAction("SwitchWeapons", throwIfNotFound: true);
+        m_Player_ClosePortal = m_Player.FindAction("ClosePortal", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -429,6 +450,7 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_SwitchWeapons;
+    private readonly InputAction m_Player_ClosePortal;
     public struct PlayerActions
     {
         private @InputSystem m_Wrapper;
@@ -440,6 +462,7 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @SwitchWeapons => m_Wrapper.m_Player_SwitchWeapons;
+        public InputAction @ClosePortal => m_Wrapper.m_Player_ClosePortal;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -470,6 +493,9 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                 @SwitchWeapons.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchWeapons;
                 @SwitchWeapons.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchWeapons;
                 @SwitchWeapons.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchWeapons;
+                @ClosePortal.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClosePortal;
+                @ClosePortal.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClosePortal;
+                @ClosePortal.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClosePortal;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -495,6 +521,9 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                 @SwitchWeapons.started += instance.OnSwitchWeapons;
                 @SwitchWeapons.performed += instance.OnSwitchWeapons;
                 @SwitchWeapons.canceled += instance.OnSwitchWeapons;
+                @ClosePortal.started += instance.OnClosePortal;
+                @ClosePortal.performed += instance.OnClosePortal;
+                @ClosePortal.canceled += instance.OnClosePortal;
             }
         }
     }
@@ -544,5 +573,6 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         void OnAim(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnSwitchWeapons(InputAction.CallbackContext context);
+        void OnClosePortal(InputAction.CallbackContext context);
     }
 }
